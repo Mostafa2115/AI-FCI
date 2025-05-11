@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-struc layer
+struct layer
 {
     double input, weight;
 }
@@ -14,15 +14,15 @@ int main ()
     for (int i = 0; i < n; ++i)
     {
         cout << "Enter net input and weight for layer " << i + 1 << ": ";
-        cin >> layer[i].input >> layer[i].weight;
+        cin >> layers[i].input >> layers[i].weight;
     }
     double bias, bias_weight, net_input = 0;
     cout << "Enter the bias: ";
     cin >> bias;
     cout << "Enter the weight of bias: ";
     cin >> bias_weight;
-    for (size_t i = 0; i < inputs.size(); ++i)
-        net_input += inputs[i] * weights[i];
+    for (size_t i = 0; i < n; ++i)
+        net_input += layers[i].input * layers[i].weight;
     net_input += bias * bias_weight;
     cout << "Net input to the output = " << net_input << endl;
     int ActivationFun;
@@ -44,13 +44,19 @@ int main ()
 
     case 2:
     {
-        cout << net_input >= 0 ? 1.0 : 0.0 << "\n\n";
+        if (net_input >= 0)
+            cout << 1.0 << "\n\n";
+        else
+            cout << 0.0 << "\n\n";
         break;
     }
 
     case 3:
     {
-        cout << net_input >= 0 ? 1.0 : -1.0 << "\n\n";
+        if (net_input >= 0)
+            cout << 1.0 << "\n\n";
+        else
+            cout << -1.0 << "\n\n";
         break;
     }
     case 4:
@@ -65,9 +71,9 @@ int main ()
     }
     case 6:
     {
-        if (x < 0)
+        if (net_input < 0)
             cout << 0 << "\n\n";
-        if (x > 1)
+        if (net_input > 1)
             cout << 1 << "\n\n";
         cout << net_input << "\n\n";
         break;
